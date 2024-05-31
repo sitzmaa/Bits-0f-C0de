@@ -13,6 +13,13 @@ import LikeBtn from "../../Components/LikeBtn";
 
 export const getStaticPaths = () => {
   const allBlogs = getAllBlogPosts();
+  // Ensure allBlogs is an array
+  if (!Array.isArray(allBlogs)) {
+    return {
+      paths: [],
+      fallback: false,
+    };
+  }
   return {
     paths: allBlogs.map((blog) => ({
       params: {
@@ -54,6 +61,7 @@ export const getStaticProps = async (context) => {
 
 function id({ data, content, id, headings, topics }) {
   return (
+    
     <>
       <Head>
         <title>{data.Title}</title>

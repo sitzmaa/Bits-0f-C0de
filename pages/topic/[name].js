@@ -5,22 +5,30 @@ import Footer from "../../Components/Footer";
 import Header from "../../Components/Header";
 import BlogHeader from "../../Components/BlogHeader";
 
-export const getStaticPaths = () => {
-  const allTopics = getAllTopics();
-  return {
-    paths: allTopics.map((topic) => ({
-      params: {
-        name: String(topic),
-      },
-    })),
-    fallback: false,
-  };
+export const getStaticPaths = async () => {
+  try {
+    const allTopics = await getAllTopics();
+    return {
+      paths: allTopics.map((topic) => ({
+        params: {
+          name: String(topic),
+        },
+      })),
+      fallback: false,
+    };
+  } catch (error) {
+    console.error("Error fetching topics for static paths:", error);
+    return {
+      paths: [],
+      fallback: false,
+    };
+  }
 };
 
 export const getStaticProps = async (context) => {
   const params = context.params;
-  const allBlogs = getAllBlogPosts();
-  const allTopics = getAllTopics();
+  const allBlogs = await getAllBlogPosts();
+  const allTopics = await getAllTopics();
 
   const filteredBlogs = allBlogs.filter((blog) => {
     if (blog.data.Topic === params.name) {
@@ -37,7 +45,7 @@ export const getStaticProps = async (context) => {
   };
 };
 
-function name({ blogs, topics, topicName }) {
+function Name({ blogs, topics, topicName }) {
   return (
     <div className="min-h-screen relative bg-white dark:bg-gray-900">
       <Navbar topics={topics} />
@@ -65,4 +73,4 @@ function name({ blogs, topics, topicName }) {
   );
 }
 
-export default name;
+export default Name;
