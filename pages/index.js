@@ -56,7 +56,7 @@ export default function Home({ blogs, topics }) {
         <Navbar topics={topics} />
         <Header />
 
-        <div className="px-0.5 md:px-7 pb-14 pt-6 mx-auto">
+        <div className="px-0.5 md:px-7 pb-14 pt-6">
           <div className="flex flex-wrap">
             {blogs &&
               blogs.map(
