@@ -13,13 +13,12 @@ import { IoMdArrowDropdown } from "react-icons/io";
 import Alert from "./Alert";
 import { useDispatch } from "react-redux";
 
-function Navbar({ topics = [] }) {
+function Navbar({ topics }) {
   const [isMounted, setIsMounted] = useState(false);
   const [isLogin, setLogin] = useState(false);
   const { theme, setTheme } = useTheme();
   const [viewAlert, setViewAlert] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
-  const [isDropdownOpen, setDropdownOpen] = useState(false);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -30,17 +29,16 @@ function Navbar({ topics = [] }) {
       dispatch({ type: "STORE_USER", payload: user });
       setLogin(true);
     }
-  }, [dispatch]);
+  }, []);
 
   const toggleTheme = () => {
     if (isMounted) {
       setTheme(theme === "light" ? "dark" : "light");
     }
   };
-
-  const handleSignOut = () => {
+  const handelSignOut = () => {
     signOut(auth)
-      .then(() => {
+      .then((res) => {
         setLogin(false);
         localStorage.removeItem("user");
         dispatch({ type: "REMOVE_USER" });
@@ -55,7 +53,7 @@ function Navbar({ topics = [] }) {
       });
   };
 
-  const handleSignIn = () => {
+  const handelSignIn = () => {
     signInWithPopup(auth, provider)
       .then((res) => {
         const userObj = {
@@ -80,10 +78,6 @@ function Navbar({ topics = [] }) {
       });
   };
 
-  const toggleDropdown = () => {
-    setDropdownOpen(!isDropdownOpen);
-  };
-
   return (
     <>
       <Alert show={viewAlert} type="success" message={alertMessage} />
@@ -103,33 +97,29 @@ function Navbar({ topics = [] }) {
               </Link>
 
               <div className="dropdown inline-block relative mx-2">
-                <button
-                  className="flex items-center hover:text-indigo-600 text-gray-800 dark:text-gray-50 mx-6 cursor-pointer"
-                  onClick={toggleDropdown}
-                >
+                <a className="flex items-center hover:text-indigo-600 text-gray-800 dark:text-gray-50 mx-6 cursor-pointer">
                   <span className="text-xl font-semibold">
                     <SiCodefactor className="text-sm" />
                   </span>
                   <span className="mx-1 font-semibold text-base md:text-base">
                     Posts
                   </span>
+
                   <span className="text-xl font-semibold">
                     <IoMdArrowDropdown className="text-xl" />
                   </span>
-                </button>
-                {isDropdownOpen && (
-                  <ul className="dropdown-menu absolute text-gray-700 pt-1 bg-white dark:bg-dark w-40 pt-6 rounded-xl left-1/3">
-                    {topics.map((topic) => (
-                      <li key={topic} className="cursor-pointer">
-                        <Link href={`/topic/${topic}`}>
-                          <a className="rounded-xl bg-white dark:bg-dark text-gray-800 dark:text-gray-50 py-2 px-4 block whitespace-no-wrap">
-                            {topic}
-                          </a>
-                        </Link>
+                </a>
+                <ul className="dropdown-menu absolute hidden text-gray-700 pt-1 bg-white dark:bg-dark w-40 pt-6 rounded-xl left-1/3">
+                  {topics.map((topic) => (
+                    <Link href={`/topic/${topic}`} key={topic}>
+                      <li className="cursor-pointer">
+                        <a className="rounded-xl bg-white dark:bg-dark text-gray-800 dark:text-gray-50 py-2 px-4 block whitespace-no-wrap">
+                          {topic}
+                        </a>
                       </li>
-                    ))}
-                  </ul>
-                )}
+                    </Link>
+                  ))}
+                </ul>
               </div>
             </div>
 
@@ -159,13 +149,13 @@ function Navbar({ topics = [] }) {
                 {isLogin ? (
                   <span
                     className="md:flex items-center"
-                    onClick={handleSignOut}
+                    onClick={handelSignOut}
                   >
                     <span className="hidden md:block text-sm font-medium">Sign Out</span>
                     <IoLogOutOutline className="text-xl mx-1" />
                   </span>
                 ) : (
-                  <span className="md:flex items-center" onClick={handleSignIn}>
+                  <span className="md:flex items-center" onClick={handelSignIn}>
                     <span className="hidden md:block text-sm font-medium"> Sign In</span>
                     <AiOutlineGoogle className="text-xl mx-1" />
                   </span>

@@ -20,19 +20,19 @@ export default function Home({ blogs, topics }) {
   return (
     <>
       <Head>
-        <title>Alexander's Blog</title>
-        <meta name="title" content="Alexander's Blog" />
+        <title>Bits-0f-C0de 🚀</title>
+        <meta name="title" content="Bits-0f-C0de 🚀" />
         <meta
           name="description"
-          content="Project Blog space for Alexander Sitzman"
+          content="Tech blogs and articles on various topics related to Software Development"
         />
 
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://blogs.alexsitzman.com/" />
-        <meta property="og:title" content="Alexander's Blog" />
+        <meta property="og:url" content="https://blogs.soumya-jit.tech/" />
+        <meta property="og:title" content="Bits-0f-C0de 🚀" />
         <meta
           property="og:description"
-          content="Project Blog space for Alexander Sitzman"
+          content="Tech blogs and articles on various topics related to Software Development"
         />
         <meta
           property="og:image"
@@ -40,11 +40,11 @@ export default function Home({ blogs, topics }) {
         />
 
         <meta property="twitter:card" content="summary_large_image" />
-        <meta property="twitter:url" content="https://blogs.alexsitzman.com/" />
-        <meta property="twitter:title" content="Alexander's Blog" />
+        <meta property="twitter:url" content="https://blogs.soumya-jit.tech/" />
+        <meta property="twitter:title" content="Bits-0f-C0de 🚀" />
         <meta
           property="twitter:description"
-          content="Project Blog space for Alexander Sitzman"
+          content="Tech blogs and articles on various topics related to Software Development"
         />
         <meta
           property="twitter:image"
