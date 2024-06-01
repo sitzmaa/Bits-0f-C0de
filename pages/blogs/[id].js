@@ -43,44 +43,54 @@ export const getStaticPaths = async () => {
 
 
 export const getStaticProps = async ({ params }) => {
-  const id = params?.id; // Extract the blog post ID from URL parameters
-  const allBlogs = getAllBlogPosts();
-  const allTopics = getAllTopics();
+  try {
+    const id = params?.id; // Extract the blog post ID from URL parameters
 
-  // Find the blog post by ID
-  const page = allBlogs.find(
-    (blog) =>
-      String(blog.data.Title.split(" ").join("-").toLowerCase()) === id
-  );
+    // Ensure allBlogs is an array
+    const allBlogs = await getAllBlogPosts();
+    const allTopics = await getAllTopics();
 
-  // Handle error if blog post is not found
-  if (!page) {
-    console.log("aaaaa");
+    // Find the blog post by ID
+    const page = allBlogs.find(
+      (blog) =>
+        String(blog.data.Title.split(" ").join("-").toLowerCase()) === id
+    );
+
+    // Handle error if blog post is not found
+    if (!page) {
+      console.log("aaaaa");
+      return {
+        notFound: true,
+      };
+    }
+
+    // Serialize the blog post content
+    const { data, content } = page;
+    const mdxSource = await serialize(content, {
+      scope: data,
+      mdxOptions: { remarkPlugins: [remarkHeadingId] },
+    });
+
+    // Get headings for the blog post content
+    const headings = await getHeadings(content);
+
+    return {
+      props: {
+        data: data,
+        content: mdxSource,
+        id: id,
+        headings: headings,
+        topics: allTopics,
+      },
+    };
+  } catch (error) {
+    console.error("Error in getStaticProps:", error);
     return {
       notFound: true,
     };
   }
-
-  // Serialize the blog post content
-  const { data, content } = page;
-  const mdxSource = await serialize(content, {
-    scope: data,
-    mdxOptions: { remarkPlugins: [remarkHeadingId] },
-  });
-
-  // Get headings for the blog post content
-  const headings = await getHeadings(content);
-
-  return {
-    props: {
-      data: data,
-      content: mdxSource,
-      id: id,
-      headings: headings,
-      topics: allTopics,
-    },
-  };
 };
+
 
 function BlogPostPage({ data, content, id, headings, topics }) {
   return (
