@@ -36,45 +36,49 @@ export const getStaticPaths = async () => {
 
 export const getStaticProps = async ({ params }) => {
   try {
-    const id = params?.id; // Extract the blog post ID from URL parameters
+    const id = params?.id;
 
-    // Ensure allBlogs is an array
     const allBlogs = await getAllBlogPosts();
     const allTopics = await getAllTopics();
 
-    // Find the blog post by ID
     const page = allBlogs.find(
       (blog) =>
         String(blog.data.Title.split(" ").join("-").toLowerCase()) === id
     );
 
-    // Handle error if blog post is not found
     if (!page) {
-      console.log("aaaaa");
+      console.log(`Blog post with id ${id} not found`);
       return {
         notFound: true,
       };
     }
 
-    // Serialize the blog post content
     const { data, content } = page;
-    const mdxSource = await serialize(content, {
-      scope: data,
-      mdxOptions: { remarkPlugins: [remarkHeadingId] },
-    });
 
-    // Get headings for the blog post content
-    const headings = await getHeadings(content);
+    try {
+      const mdxSource = await serialize(content, {
+        scope: data,
+        mdxOptions: { remarkPlugins: [remarkHeadingId] },
+      });
 
-    return {
-      props: {
-        data: data,
-        content: mdxSource,
-        id: id,
-        headings: headings,
-        topics: allTopics,
-      },
-    };
+      const headings = await getHeadings(content);
+
+      return {
+        props: {
+          data: data,
+          content: mdxSource,
+          id: id,
+          headings: headings,
+          topics: allTopics,
+        },
+      };
+    } catch (serializationError) {
+      console.error("Error serializing MDX content:", serializationError);
+      console.error("MDX Content:", content);
+      return {
+        notFound: true,
+      };
+    }
   } catch (error) {
     console.error("Error in getStaticProps:", error);
     return {
@@ -82,6 +86,7 @@ export const getStaticProps = async ({ params }) => {
     };
   }
 };
+
 
 
 function BlogPostPage({ data, content, id, headings, topics }) {
