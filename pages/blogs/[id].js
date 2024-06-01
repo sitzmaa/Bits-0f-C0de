@@ -24,17 +24,16 @@ export const getStaticPaths = async () => {
   
 
   // Generate paths for all blog post pages
-  const paths = allBlogs.map((blog) => ({
-    params: {
-      id: String(blog.data.Title.split(" ").join("-").toLowerCase()),
-    },
-  }));
-  console.log(paths);
-
   return {
-    paths: paths,
+    paths: allBlogs.map((blog) => ({
+      params: {
+        id: String(blog.data.Title.split(" ").join("-").toLowerCase()),
+      },
+    })),
     fallback: false,
   };
+
+
 };
 
 export const getStaticProps = async ({ params }) => {
@@ -50,6 +49,7 @@ export const getStaticProps = async ({ params }) => {
 
   // Handle error if blog post is not found
   if (!page) {
+    console.log("aaaaa");
     return {
       notFound: true,
     };
