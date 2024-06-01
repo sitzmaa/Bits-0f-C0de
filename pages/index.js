@@ -26,7 +26,6 @@ export default function Home({ blogs, topics }) {
           name="description"
           content="Project Blog space for Alexander Sitzman"
         />
-
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://blogs.alexsitzman.com/" />
         <meta property="og:title" content="Alexander's Blog" />
@@ -38,7 +37,6 @@ export default function Home({ blogs, topics }) {
           property="og:image"
           content="https://raw.githubusercontent.com/soumyajit4419/Bits-0f-C0de/main/Extra/sc.png"
         />
-
         <meta property="twitter:card" content="summary_large_image" />
         <meta property="twitter:url" content="https://blogs.alexsitzman.com/" />
         <meta property="twitter:title" content="Alexander's Blog" />
@@ -55,9 +53,8 @@ export default function Home({ blogs, topics }) {
       <div className="min-h-screen relative bg-white dark:bg-gray-900">
         <Navbar topics={topics} />
         <Header />
-
         <div className="px-0.5 md:px-7 pb-14 pt-6">
-          <div className="flex flex-wrap">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {blogs &&
               blogs.map(
                 (blog) =>
@@ -72,7 +69,6 @@ export default function Home({ blogs, topics }) {
               )}
           </div>
         </div>
-
         <Footer />
       </div>
     </>
