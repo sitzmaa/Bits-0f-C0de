@@ -14,15 +14,14 @@ import LikeBtn from "../../Components/LikeBtn";
 export const getStaticPaths = async () => {
   // Ensure allBlogs is an array
   const allBlogs = getAllBlogPosts();
-  if (!allBlogs){
-    console.log("noooo");
-  }
   if (!Array.isArray(allBlogs)) {
+    console.log("Not array");
     return {
       paths: [],
       fallback: false,
     };
   }
+  
 
   // Generate paths for all blog post pages
   const paths = allBlogs.map((blog) => ({
@@ -30,6 +29,7 @@ export const getStaticPaths = async () => {
       id: String(blog.data.Title.split(" ").join("-").toLowerCase()),
     },
   }));
+  console.log(paths);
 
   return {
     paths: paths,
