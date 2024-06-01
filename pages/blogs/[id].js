@@ -104,12 +104,9 @@ function BlogPostPage({ data, content, id, headings, topics }) {
         <Navbar topics={topics} />
         <div className="py-24">
           <BlogInner data={data} content={content} headings={headings} />
-          <LikeBtn id={id} />
+
           <BlogShare data={data} />
 
-          <SWRConfig>
-            <Comments id={id} />
-          </SWRConfig>
 
           <Footer />
         </div>
