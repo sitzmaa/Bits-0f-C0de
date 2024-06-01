@@ -74,6 +74,8 @@ export const getStaticProps = async ({ params }) => {
       };
     } catch (serializationError) {
       console.error("Error serializing MDX content:", serializationError);
+      console.error("headingsa id",remarkHeadingId);
+      console.error("MDX data:", data);
       console.error("MDX Content:", content);
       return {
         notFound: true,
