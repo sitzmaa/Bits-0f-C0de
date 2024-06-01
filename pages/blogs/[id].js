@@ -11,10 +11,9 @@ import { remarkHeadingId } from "remark-custom-heading-id";
 import { getHeadings } from "../../Lib/GetHeadings";
 import LikeBtn from "../../Components/LikeBtn";
 
-export const getStaticPaths = () => {
-  const allBlogs = getAllBlogPosts();
-
+export const getStaticPaths = async () => {
   // Ensure allBlogs is an array
+  const allBlogs = getAllBlogPosts();
   if (!Array.isArray(allBlogs)) {
     return {
       paths: [],
