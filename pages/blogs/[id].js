@@ -13,55 +13,61 @@ import LikeBtn from "../../Components/LikeBtn";
 
 export const getStaticPaths = () => {
   const allBlogs = getAllBlogPosts();
-  // Ensure allBlogs is an array
-  if (!Array.isArray(allBlogs)) {
-    return {
-      paths: [],
-      fallback: false,
-    };
-  }
+
+  // Generate paths for all blog post pages
+  const paths = allBlogs.map((blog) => ({
+    params: {
+      id: String(blog.data.Title.split(" ").join("-").toLowerCase()),
+    },
+  }));
+
   return {
-    paths: allBlogs.map((blog) => ({
-      params: {
-        id: String(blog.data.Title.split(" ").join("-").toLowerCase()),
-      },
-    })),
+    paths: paths,
     fallback: false,
   };
 };
 
-export const getStaticProps = async (context) => {
-  const params = context.params;
+export const getStaticProps = async ({ params }) => {
+  const id = params?.id; // Extract the blog post ID from URL parameters
   const allBlogs = getAllBlogPosts();
   const allTopics = getAllTopics();
 
+  // Find the blog post by ID
   const page = allBlogs.find(
     (blog) =>
-      String(blog.data.Title.split(" ").join("-").toLowerCase()) === params.id
+      String(blog.data.Title.split(" ").join("-").toLowerCase()) === id
   );
 
+  // Handle error if blog post is not found
+  if (!page) {
+    return {
+      notFound: true,
+    };
+  }
+
+  // Serialize the blog post content
   const { data, content } = page;
   const mdxSource = await serialize(content, {
     scope: data,
     mdxOptions: { remarkPlugins: [remarkHeadingId] },
   });
 
+  // Get headings for the blog post content
   const headings = await getHeadings(content);
 
   return {
     props: {
       data: data,
       content: mdxSource,
-      id: params.id,
+      id: id,
       headings: headings,
       topics: allTopics,
     },
   };
 };
 
-function id({ data, content, id, headings, topics }) {
+function BlogPostPage({ data, content, id, headings, topics }) {
   return (
-    
     <>
       <Head>
         <title>{data.Title}</title>
@@ -105,4 +111,4 @@ function id({ data, content, id, headings, topics }) {
   );
 }
 
-export default id;
+export default BlogPostPage;

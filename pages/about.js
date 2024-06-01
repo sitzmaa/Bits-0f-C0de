@@ -1,6 +1,6 @@
 import Navbar from "../Components/Navbar";
 import Footer from "../Components/Footer";
-import { FaLaptop, FaTwitter } from "react-icons/fa";
+import { FaLaptop, FaTwitter, FaLinkedin,FaGithub } from "react-icons/fa";
 import { getAllTopics } from "../Lib/Data";
 
 export const getStaticProps = async () => {
@@ -34,7 +34,7 @@ function About({ topics }) {
 
         <div className="text-center pt-8">
           <button className="bg-indigo-500 px-3 py-1 font-semibold text-white inline-flex items-center space-x-2 rounded dark:bg-indigo-600">
-            <FaLaptop />
+            <FaGithub />
             <a
               rel="noopener noreferrer"
               target="_blank"
@@ -45,7 +45,7 @@ function About({ topics }) {
           </button>
 
           <button className="bg-indigo-500 px-3 py-1 font-semibold text-white inline-flex items-center space-x-2 rounded ml-3 dark:bg-indigo-600">
-            <FaTwitter />
+            <FaLinkedin />
             <a
               className="twitter-follow-button"
               rel="noopener noreferrer"
