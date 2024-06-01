@@ -7,7 +7,7 @@ import { getAllBlogPosts, getAllTopics } from "../Lib/Data";
 
 export const getStaticProps = async () => {
   const allBlogs = await getAllBlogPosts();
-  const allTopics = await getAllTopics();
+  const allTopics = await getAllTopics(); // Wait for the promise to resolve
   return {
     props: {
       blogs: allBlogs,
@@ -20,19 +20,19 @@ export default function Home({ blogs, topics }) {
   return (
     <>
       <Head>
-        <title>Bits-0f-C0de 🚀</title>
-        <meta name="title" content="Bits-0f-C0de 🚀" />
+        <title>Alexander's Blog</title>
+        <meta name="title" content="Alexander's Blog" />
         <meta
           name="description"
-          content="Tech blogs and articles on various topics related to Software Development"
+          content="Project Blog space for Alexander Sitzman"
         />
 
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://blogs.soumya-jit.tech/" />
-        <meta property="og:title" content="Bits-0f-C0de 🚀" />
+        <meta property="og:url" content="https://blogs.alexsitzman.com/" />
+        <meta property="og:title" content="Alexander's Blog" />
         <meta
           property="og:description"
-          content="Tech blogs and articles on various topics related to Software Development"
+          content="Project Blog space for Alexander Sitzman"
         />
         <meta
           property="og:image"
@@ -40,11 +40,11 @@ export default function Home({ blogs, topics }) {
         />
 
         <meta property="twitter:card" content="summary_large_image" />
-        <meta property="twitter:url" content="https://blogs.soumya-jit.tech/" />
-        <meta property="twitter:title" content="Bits-0f-C0de 🚀" />
+        <meta property="twitter:url" content="https://blogs.alexsitzman.com/" />
+        <meta property="twitter:title" content="Alexander's Blog" />
         <meta
           property="twitter:description"
-          content="Tech blogs and articles on various topics related to Software Development"
+          content="Project Blog space for Alexander Sitzman"
         />
         <meta
           property="twitter:image"
@@ -56,7 +56,7 @@ export default function Home({ blogs, topics }) {
         <Navbar topics={topics} />
         <Header />
 
-        <div className="px-0.5 md:px-7 pb-14 pt-6 mx-auto">
+        <div className="px-0.5 md:px-7 pb-14 pt-6">
           <div className="flex flex-wrap">
             {blogs &&
               blogs.map(
