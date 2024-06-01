@@ -5,9 +5,9 @@ import Header from "../Components/Header";
 import BlogHeader from "../Components/BlogHeader";
 import { getAllBlogPosts, getAllTopics } from "../Lib/Data";
 
-export const getStaticProps = async () => {
-  const allBlogs = await getAllBlogPosts();
-  const allTopics = await getAllTopics();
+export const getStaticProps = () => {
+  const allBlogs = getAllBlogPosts();
+  const allTopics = getAllTopics();
   return {
     props: {
       blogs: allBlogs,
@@ -20,29 +20,31 @@ export default function Home({ blogs, topics }) {
   return (
     <>
       <Head>
-        <title>Alexander's Blog</title>
-        <meta name="title" content="Alexander's Blog" />
+        <title>Bits-0f-C0de 🚀</title>
+        <meta name="title" content="Bits-0f-C0de 🚀" />
         <meta
           name="description"
-          content="Project Blog space for Alexander Sitzman"
+          content="Tech blogs and articles on various topics related to Software Development"
         />
+
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://blogs.alexsitzman.com/" />
-        <meta property="og:title" content="Alexander's Blog" />
+        <meta property="og:url" content="https://blogs.soumya-jit.tech/" />
+        <meta property="og:title" content="Bits-0f-C0de 🚀" />
         <meta
           property="og:description"
-          content="Project Blog space for Alexander Sitzman"
+          content="Tech blogs and articles on various topics related to Software Development"
         />
         <meta
           property="og:image"
           content="https://raw.githubusercontent.com/soumyajit4419/Bits-0f-C0de/main/Extra/sc.png"
         />
+
         <meta property="twitter:card" content="summary_large_image" />
-        <meta property="twitter:url" content="https://blogs.alexsitzman.com/" />
-        <meta property="twitter:title" content="Alexander's Blog" />
+        <meta property="twitter:url" content="https://blogs.soumya-jit.tech/" />
+        <meta property="twitter:title" content="Bits-0f-C0de 🚀" />
         <meta
           property="twitter:description"
-          content="Project Blog space for Alexander Sitzman"
+          content="Tech blogs and articles on various topics related to Software Development"
         />
         <meta
           property="twitter:image"
@@ -53,23 +55,24 @@ export default function Home({ blogs, topics }) {
       <div className="min-h-screen relative bg-white dark:bg-gray-900">
         <Navbar topics={topics} />
         <Header />
-        <div className="px-0.5 md:px-7 pb-14 pt-6">
-          <div className="grid gap-6" style={{ gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))" }}>
+
+        <div className="px-0.5 md:px-7 pb-14 pt-6 mx-auto">
+          <div className="flex flex-wrap">
             {blogs &&
               blogs.map(
                 (blog) =>
                   blog.data.isPublished && (
-                    <div key={blog.data.Id} className="p-4">
-                      <BlogHeader
-                        data={blog.data}
-                        content={blog.content}
-                        readTime={blog.readTime.text}
-                      />
-                    </div>
+                    <BlogHeader
+                      key={blog.data.Id}
+                      data={blog.data}
+                      content={blog.content}
+                      readTime={blog.readTime.text}
+                    />
                   )
               )}
           </div>
         </div>
+
         <Footer />
       </div>
     </>
