@@ -5,9 +5,9 @@ import Header from "../Components/Header";
 import BlogHeader from "../Components/BlogHeader";
 import { getAllBlogPosts, getAllTopics } from "../Lib/Data";
 
-export const getStaticProps = () => {
-  const allBlogs = getAllBlogPosts();
-  const allTopics = getAllTopics();
+export const getStaticProps = async () => {
+  const allBlogs = await getAllBlogPosts();
+  const allTopics = await getAllTopics();
   return {
     props: {
       blogs: allBlogs,
