@@ -15,14 +15,6 @@ export const getStaticPaths = async () => {
   try {
     // Ensure allBlogs is an array
     const allBlogs = await getAllBlogPosts();
-    if (!Array.isArray(allBlogs)) {
-      console.log("Not array");
-      return {
-        paths: [],
-        fallback: false,
-      };
-    }
-
     // Generate paths for all blog post pages
     return {
       paths: allBlogs.map((blog) => ({
