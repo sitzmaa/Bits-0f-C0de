@@ -58,7 +58,7 @@ export const getStaticProps = async ({ params }) => {
     try {
       const mdxSource = await serialize(content, {
         scope: data,
-        mdxOptions: { remarkPlugins: [] },
+
       });
 
       const headings = await getHeadings(content);
