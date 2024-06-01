@@ -7,7 +7,7 @@ import { getAllBlogPosts, getAllTopics } from "../Lib/Data";
 
 export const getStaticProps = async () => {
   const allBlogs = await getAllBlogPosts();
-  const allTopics = await getAllTopics(); // Wait for the promise to resolve
+  const allTopics = await getAllTopics();
   return {
     props: {
       blogs: allBlogs,
@@ -54,17 +54,18 @@ export default function Home({ blogs, topics }) {
         <Navbar topics={topics} />
         <Header />
         <div className="px-0.5 md:px-7 pb-14 pt-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid gap-6" style={{ gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))" }}>
             {blogs &&
               blogs.map(
                 (blog) =>
                   blog.data.isPublished && (
-                    <BlogHeader
-                      key={blog.data.Id}
-                      data={blog.data}
-                      content={blog.content}
-                      readTime={blog.readTime.text}
-                    />
+                    <div key={blog.data.Id} className="p-4">
+                      <BlogHeader
+                        data={blog.data}
+                        content={blog.content}
+                        readTime={blog.readTime.text}
+                      />
+                    </div>
                   )
               )}
           </div>
