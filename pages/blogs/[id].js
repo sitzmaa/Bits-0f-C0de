@@ -14,6 +14,14 @@ import LikeBtn from "../../Components/LikeBtn";
 export const getStaticPaths = () => {
   const allBlogs = getAllBlogPosts();
 
+  // Ensure allBlogs is an array
+  if (!Array.isArray(allBlogs)) {
+    return {
+      paths: [],
+      fallback: false,
+    };
+  }
+
   // Generate paths for all blog post pages
   const paths = allBlogs.map((blog) => ({
     params: {
