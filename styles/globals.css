@@ -53,13 +53,4 @@ button:focus {
   display: block;
 }
 
-/* Aspect Ratio Classes */
-.aspect-w-1 {
-  aspect-ratio: 1 / 1;
-}
 
-@media (max-width: 640px) {
-  .aspect-w-1 {
-    aspect-ratio: auto;
-  }
-}
