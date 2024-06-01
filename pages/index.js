@@ -53,18 +53,19 @@ export default function Home({ blogs, topics }) {
       <div className="min-h-screen relative bg-white dark:bg-gray-900">
         <Navbar topics={topics} />
         <Header />
-        <div className="px-0.5 md:px-7 pb-14 pt-6 mx-auto">
-          <div className="flex flex-wrap">
+        <div className="px-0.5 md:px-7 pb-14 pt-6">
+          <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
             {blogs &&
               blogs.map(
                 (blog) =>
                   blog.data.isPublished && (
-                    <BlogHeader
-                      key={blog.data.Id}
-                      data={blog.data}
-                      content={blog.content}
-                      readTime={blog.readTime.text}
-                    />
+                    <div key={blog.data.Id} className="aspect-w-1 aspect-h-1">
+                      <BlogHeader
+                        data={blog.data}
+                        content={blog.content}
+                        readTime={blog.readTime.text}
+                      />
+                    </div>
                   )
               )}
           </div>
