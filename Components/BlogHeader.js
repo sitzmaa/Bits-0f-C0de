@@ -6,7 +6,7 @@ function BlogHeader({ data, content, readTime }) {
     <Link
       href={`/blogs/${String(data.Title.split(" ").join("-").toLowerCase())}`}
     >
-      <div className="cursor-pointer group px-6 py-6 md:px-10 md:w-1/3 flex flex-col items-start rounded transform">
+      <div className="cursor-pointer group px-6 py-6 md:px-10 flex flex-col items-start rounded transform h-full w-full max-h-72 overflow-hidden">
         <span className="inline-block py-1 px-2 rounded bg-gray-100 dark:bg-indigo-900 text-indigo-700 dark:text-gray-200 text-sm font-medium tracking-widest">
           {data.Tags.split(" ")[0]}
         </span>
