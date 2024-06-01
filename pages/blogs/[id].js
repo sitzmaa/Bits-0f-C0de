@@ -10,6 +10,8 @@ import { SWRConfig } from "swr";
 import { remarkHeadingId } from "remark-custom-heading-id";
 import { getHeadings } from "../../Lib/GetHeadings";
 import LikeBtn from "../../Components/LikeBtn";
+import remarkSlug from 'remark-slug';
+import remarkAutolinkHeadings from 'remark-autolink-headings';
 
 export const getStaticPaths = async () => {
   try {
@@ -58,7 +60,7 @@ export const getStaticProps = async ({ params }) => {
     try {
       const mdxSource = await serialize(content, {
         scope: data,
-        mdxOptions: { remarkPlugins: [remarkHeadingId] },
+        mdxOptions: { remarkPlugins: [remarkSlug, remarkAutolinkHeadings] },
       });
 
       const headings = await getHeadings(content);
@@ -74,9 +76,6 @@ export const getStaticProps = async ({ params }) => {
       };
     } catch (serializationError) {
       console.error("Error serializing MDX content:", serializationError);
-      console.error("headingsa id",remarkHeadingId);
-      console.error("MDX data:", data);
-      console.error("MDX Content:", content);
       return {
         notFound: true,
       };

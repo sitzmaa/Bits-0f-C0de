@@ -25,7 +25,9 @@
     "react-redux": "^9.1.2",
     "reading-time": "^1.5.0",
     "redux": "^5.0.1",
+    "remark-autolink-headings": "^7.0.1",
     "remark-custom-heading-id": "^1.0.1",
+    "remark-slug": "^7.0.1",
     "request-ip": "^3.3.0",
     "swr": "^1.2.2"
   },
