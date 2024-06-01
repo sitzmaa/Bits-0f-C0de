@@ -14,6 +14,9 @@ import LikeBtn from "../../Components/LikeBtn";
 export const getStaticPaths = async () => {
   // Ensure allBlogs is an array
   const allBlogs = getAllBlogPosts();
+  if (!allBlogs){
+    console.log("noooo");
+  }
   if (!Array.isArray(allBlogs)) {
     return {
       paths: [],
