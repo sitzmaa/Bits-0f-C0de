@@ -12,29 +12,35 @@ import { getHeadings } from "../../Lib/GetHeadings";
 import LikeBtn from "../../Components/LikeBtn";
 
 export const getStaticPaths = async () => {
-  // Ensure allBlogs is an array
-  const allBlogs = await getAllBlogPosts();
-  if (!Array.isArray(allBlogs)) {
-    console.log("Not array");
+  try {
+    // Ensure allBlogs is an array
+    const allBlogs = await getAllBlogPosts();
+    if (!Array.isArray(allBlogs)) {
+      console.log("Not array");
+      return {
+        paths: [],
+        fallback: false,
+      };
+    }
+
+    // Generate paths for all blog post pages
+    return {
+      paths: allBlogs.map((blog) => ({
+        params: {
+          id: String(blog.data.Title.split(" ").join("-").toLowerCase()),
+        },
+      })),
+      fallback: false,
+    };
+  } catch (error) {
+    console.error("Error in getStaticPaths:", error);
     return {
       paths: [],
       fallback: false,
     };
   }
-  
-
-  // Generate paths for all blog post pages
-  return {
-    paths: allBlogs.map((blog) => ({
-      params: {
-        id: String(blog.data.Title.split(" ").join("-").toLowerCase()),
-      },
-    })),
-    fallback: false,
-  };
-
-
 };
+
 
 export const getStaticProps = async ({ params }) => {
   const id = params?.id; // Extract the blog post ID from URL parameters
