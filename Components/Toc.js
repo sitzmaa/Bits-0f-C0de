@@ -12,7 +12,7 @@ function Toc({ headings }) {
             key={heading.uid}
             className="mt-4 text-lg text-gray-700 dark:text-gray-400"
             style={{
-              paddingLeft: heading.level === 3 ? "1rem" : "",
+              paddingLeft: heading.level === 3 ? "2rem" : "",
               color: heading.id === active ? "#6366f1" : "",
             }}
             onClick={(e) => {
